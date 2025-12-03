@@ -38,6 +38,7 @@
       padding: 50px 20px;
     }
 
+    /* GOOD LIBATIONS */
     h1 {
       font-family: 'Times New Roman', Times, serif;
       font-weight: bold;
@@ -53,6 +54,11 @@
 
     h1 span + span {
       margin-top: -0.1em;
+    }
+
+    /* MOBILE FIX: Larger heading */
+    @media (max-width: 600px) {
+      h1 { font-size: 6vw; }
     }
 
     /* MADE Sunflower for JOSH LEOS */
@@ -167,15 +173,15 @@
   <div class="video-wrapper">
     <div class="video-container video-locked" id="videoLock">
 
-      <!-- ⭐ AUTOPLAY REMOVED — plays only after correct password -->
-      <video id="mainVideo" muted loop playsinline>
+      <!-- ⭐ Autoplay ON so iPhone renders the video frame, but JS freezes it instantly -->
+      <video id="mainVideo" muted loop playsinline autoplay>
         <source src="JoshLeos.mp4" type="video/mp4">
       </video>
 
       <div class="video-overlay" id="overlay">
         <div class="lock-icon">ENTER PASSWORD</div>
 
-        <div class="password-box" id="passwordBox">
+        <div class="password-box">
           <input type="text" id="passwordInput" placeholder="">
         </div>
       </div>
@@ -189,7 +195,7 @@
   </div>
 
   <footer>
-    <div>C</div>opyright © 2025 Good Libations - All Rights Reserved.
+    Copyright © 2025 Good Libations - All Rights Reserved.
   </footer>
 
   <script>
@@ -199,6 +205,9 @@
     const passwordInput = document.getElementById("passwordInput");
 
     let realPassword = "";
+
+    /* 🔥 FREEZE autoplay video so it's visible but not playing */
+    video.pause();
 
     passwordInput.addEventListener("input", function(e) {
       const lastValue = e.target.value;
