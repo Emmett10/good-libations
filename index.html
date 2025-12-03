@@ -48,7 +48,6 @@
 
     h1 span {
       display: block;
-      margin: 0;
       line-height: 1;
     }
 
@@ -75,30 +74,19 @@
       margin-bottom: 30px;
     }
 
+    /* 🔥 PERFECT SCALING FOR MOBILE + DESKTOP */
     .video-container {
       position: relative;
       width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
     }
 
     .video-container video {
-      display: block;
-      max-width: 100%;
-      height: auto;
-    }
-
-    footer {
-      margin-top: auto;
       width: 100%;
-      display: flex;
-      justify-content: center;
-      padding: 10px 20px;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 4vw; }
-      h2 { font-size: 4vw; }
-      footer { font-size: 3vw; }
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     /* LOCKED VIDEO EFFECT */
@@ -121,16 +109,16 @@
       text-align: center;
     }
 
-    /* ENTER PASSWORD TEXT — EVEN SMALLER */
+    /* ENTER PASSWORD TEXT — SMALL */
     .lock-icon {
-      font-size: 0.8rem;   /* smaller */
+      font-size: 0.8rem;
       margin-bottom: 6px;
       letter-spacing: 1px;
       font-weight: bold;
       text-transform: uppercase;
     }
 
-    /* WHITE PASSWORD BOX — EVEN SMALLER */
+    /* PASSWORD BOX — SMALL */
     .password-box {
       display: flex;
       flex-direction: column;
@@ -140,9 +128,9 @@
     }
 
     .password-box input {
-      padding: 3px 5px;    /* smaller padding */
-      width: 100px;         /* narrower box */
-      font-size: 0.6rem;    /* smaller text */
+      padding: 3px 5px;
+      width: 100px;
+      font-size: 0.6rem;
       border-radius: 4px;
       border: 2px solid #fff;
       background: #fff;
@@ -158,6 +146,17 @@
     .social-icon img {
       height: 50px;
       width: auto;
+    }
+
+    /* ⭐ COPYRIGHT TEXT — NOW MADE SUNFLOWER */
+    footer {
+      margin-top: auto;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      font-family: "MADE Sunflower", serif;
     }
   </style>
 </head>
@@ -182,7 +181,7 @@
     </div>
 
     <div class="social-icon">
-      <a href="https://instagram.com/irrelevantbartender?igsh=NTc4MTIwNjQ2YQ==" target="_blank" rel="noopener">
+      <a href="https://instagram.com/goodlibes?igsh=NTc4MTlwNjQ2YQ==" target="_blank" rel="noopener">
         <img src="IG.avif" alt="Instagram">
       </a>
     </div>
@@ -197,6 +196,7 @@
     const overlay = document.getElementById("overlay");
     const video = document.getElementById("mainVideo");
     const passwordInput = document.getElementById("passwordInput");
+
     let realPassword = "";
 
     passwordInput.addEventListener("input", function(e) {
@@ -209,7 +209,6 @@
         realPassword = realPassword.slice(0, lastValue.length);
       }
 
-      // show asterisks
       e.target.value = "*".repeat(realPassword.length);
 
       if (realPassword === "JoshLeos") {
