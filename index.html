@@ -8,9 +8,8 @@
   <!-- Google Font: Playfair Display -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
-  <!-- If you have MADE Sunflower locally or via @font‑face -->
+  <!-- MADE Sunflower Font -->
   <style>
-    /* Example @font-face — adjust path/format as needed */
     @font-face {
       font-family: "MADE Sunflower";
       src: url("fonts/MADE_Sunflower.woff2") format("woff2"),
@@ -57,7 +56,7 @@
       margin-top: -0.1em;
     }
 
-    /* UPDATED: Use MADE Sunflower for the JOSH LEOS header */
+    /* MADE Sunflower for JOSH LEOS */
     h2 {
       font-family: "MADE Sunflower", serif;
       font-weight: normal;
@@ -122,41 +121,33 @@
       text-align: center;
     }
 
-    /* ENTER PASSWORD TEXT — SMALLER */
+    /* ENTER PASSWORD TEXT — EVEN SMALLER */
     .lock-icon {
-      font-size: 1.3rem;
-      margin-bottom: 15px;
-      color: white;
+      font-size: 0.8rem;   /* smaller */
+      margin-bottom: 6px;
       letter-spacing: 1px;
       font-weight: bold;
       text-transform: uppercase;
     }
 
-    /* WHITE PASSWORD BOX — SMALLER */
+    /* WHITE PASSWORD BOX — EVEN SMALLER */
     .password-box {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
-      margin-top: 10px;
+      gap: 6px;
+      margin-top: 4px;
     }
 
     .password-box input {
-      padding: 6px 8px;
+      padding: 3px 5px;    /* smaller padding */
+      width: 100px;         /* narrower box */
+      font-size: 0.6rem;    /* smaller text */
       border-radius: 4px;
       border: 2px solid #fff;
       background: #fff;
       color: #000;
-      width: 150px;
       text-align: center;
-      font-size: 0.8rem;
-    }
-
-    #errorMessage {
-      color: #ff4d4d;
-      font-size: 0.9rem;
-      display: none;
-      margin-top: 5px;
     }
 
     .social-icon {
@@ -191,7 +182,7 @@
     </div>
 
     <div class="social-icon">
-      <a href="https://instagram.com/goodlibes?igsh=NTc4MTlwNjQ2YQ==" target="_blank" rel="noopener">
+      <a href="https://instagram.com/irrelevantbartender?igsh=NTc4MTIwNjQ2YQ==" target="_blank" rel="noopener">
         <img src="IG.avif" alt="Instagram">
       </a>
     </div>
@@ -218,6 +209,7 @@
         realPassword = realPassword.slice(0, lastValue.length);
       }
 
+      // show asterisks
       e.target.value = "*".repeat(realPassword.length);
 
       if (realPassword === "JoshLeos") {
