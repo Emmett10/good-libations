@@ -74,12 +74,13 @@
       margin-bottom: 30px;
     }
 
-    /* 🔥 PERFECT SCALING FOR MOBILE + DESKTOP */
+    /* FIXED SCALING FOR ALL DEVICES */
     .video-container {
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 9;
       overflow: hidden;
+      min-height: 200px; /* iOS fix */
     }
 
     .video-container video {
@@ -89,9 +90,9 @@
       display: block;
     }
 
-    /* LOCKED VIDEO EFFECT */
+    /* LOCKED VIDEO (visible but dim) */
     .video-locked video {
-      filter: grayscale(100%) brightness(40%);
+      opacity: 0.4; /* iOS friendly */
       pointer-events: none;
     }
 
@@ -109,7 +110,6 @@
       text-align: center;
     }
 
-    /* ENTER PASSWORD TEXT — SMALL */
     .lock-icon {
       font-size: 0.8rem;
       margin-bottom: 6px;
@@ -118,7 +118,6 @@
       text-transform: uppercase;
     }
 
-    /* PASSWORD BOX — SMALL */
     .password-box {
       display: flex;
       flex-direction: column;
@@ -148,7 +147,7 @@
       width: auto;
     }
 
-    /* ⭐ COPYRIGHT TEXT — NOW MADE SUNFLOWER */
+    /* MADE SUNFLOWER FOOTER */
     footer {
       margin-top: auto;
       width: 100%;
@@ -167,7 +166,9 @@
 
   <div class="video-wrapper">
     <div class="video-container video-locked" id="videoLock">
-      <video id="mainVideo" muted loop>
+
+      <!-- ⭐ AUTOPLAY REMOVED — plays only after correct password -->
+      <video id="mainVideo" muted loop playsinline>
         <source src="JoshLeos.mp4" type="video/mp4">
       </video>
 
@@ -188,7 +189,7 @@
   </div>
 
   <footer>
-    <div>Copyright © 2025 Good Libations - All Rights Reserved.</div>
+    <div>C</div>opyright © 2025 Good Libations - All Rights Reserved.
   </footer>
 
   <script>
