@@ -138,7 +138,7 @@
   <div class="video-wrapper">
     <div class="video-container video-locked" id="videoLock">
 
-      <!-- VIDEO STARTS PAUSED -->
+      <!-- VIDEO STARTS PAUSED & MUTED -->
       <video
         id="mainVideo"
         muted
@@ -152,7 +152,7 @@
       <div class="video-overlay" id="overlay">
         <div class="lock-icon">ENTER PASSWORD</div>
         <div class="password-box">
-          <input type="text" id="passwordInput" autocomplete="off">
+          <input type="text" id="passwordInput" autocomplete="off" placeholder="Password">
         </div>
       </div>
     </div>
@@ -176,14 +176,10 @@
 
     let realPassword = "";
 
-    video.addEventListener('loadeddata', () => {
-      video.currentTime = 0;
-      video.pause();
-    });
-
+    // Mask input with asterisks
     passwordInput.addEventListener("input", function(e) {
       const value = e.target.value;
-      const lastChar = value[value.length - 1];
+      const lastChar = value[value.length - 1] || "";
 
       if (value.length > realPassword.length) {
         realPassword += lastChar;
@@ -192,13 +188,28 @@
       }
 
       e.target.value = "*".repeat(realPassword.length);
+    });
 
-      if (realPassword === "CrunchwrapSupreme") {
-        videoContainer.classList.remove("video-locked");
-        overlay.style.display = "none";
-        video.setAttribute("controls", "controls");
-        video.play();
+    // Unlock when Enter key is pressed
+    passwordInput.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        if (realPassword === "CrunchwrapSupreme") {
+          videoContainer.classList.remove("video-locked");
+          overlay.style.display = "none";
+          video.setAttribute("controls", "controls");
+
+          // Keep muted for autoplay on all devices
+          video.play().catch(err => console.log("Video playback blocked:", err));
+        } else {
+          alert("Incorrect password!");
+        }
       }
+    });
+
+    // Ensure video starts paused at the beginning
+    video.addEventListener('loadeddata', () => {
+      video.currentTime = 0;
+      video.pause();
     });
   </script>
 
