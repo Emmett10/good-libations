@@ -64,7 +64,7 @@
       margin-bottom: 30px;
     }
 
-    /* 🔒 4:3 VIDEO CONTAINER */
+    /* 4:3 VIDEO CONTAINER */
     .video-container {
       position: relative;
       width: 100%;
@@ -73,7 +73,13 @@
       overflow: hidden;
     }
 
-    /* 🎥 VIDEO WITH BLACK BORDERS */
+    /* VIDEO VISIBLE BUT LOCKED */
+    .video-locked video {
+      opacity: 1;          /* fully visible */
+      pointer-events: none; /* overlay still blocks clicks */
+    }
+
+    /* VIDEO STYLING */
     .video-container video {
       width: 100%;
       height: 100%;
@@ -82,11 +88,7 @@
       display: block;
     }
 
-    .video-locked video {
-      opacity: 0.4;
-      pointer-events: none;
-    }
-
+    /* OVERLAY */
     .video-overlay {
       position: absolute;
       inset: 0;
@@ -142,6 +144,7 @@
   <div class="video-wrapper">
     <div class="video-container video-locked" id="videoLock">
 
+      <!-- VIDEO STARTS PAUSED -->
       <video
         id="mainVideo"
         muted
@@ -152,6 +155,7 @@
         <source src="JoshLeos.mp4" type="video/mp4">
       </video>
 
+      <!-- OVERLAY -->
       <div class="video-overlay" id="overlay">
         <div class="lock-icon">ENTER PASSWORD</div>
         <div class="password-box">
@@ -179,7 +183,7 @@
 
     let realPassword = "";
 
-    passwordInput.addEventListener("input", function (e) {
+    passwordInput.addEventListener("input", function(e) {
       const value = e.target.value;
       const lastChar = value[value.length - 1];
 
@@ -195,7 +199,7 @@
         videoContainer.classList.remove("video-locked");
         overlay.style.display = "none";
         video.setAttribute("controls", "controls");
-        video.play();
+        video.play(); // start video when password is correct
       }
     });
   </script>
