@@ -60,6 +60,7 @@
       max-width: 800px;
       width: 100%;
       margin-bottom: 30px;
+      position: relative;
     }
 
     .video-container {
@@ -70,19 +71,16 @@
       overflow: hidden;
     }
 
+    /* Video always visible, poster shows initially */
     .video-container video {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      background: black;
       display: block;
+      background: black;
     }
 
-    .video-locked video {
-      opacity: 1;
-      pointer-events: none;
-    }
-
+    /* Overlay fully covers video until password entered */
     .video-overlay {
       position: absolute;
       inset: 0;
@@ -91,6 +89,7 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      z-index: 10;
     }
 
     .lock-icon {
@@ -136,9 +135,9 @@
   <h2>JOSH LEOS</h2>
 
   <div class="video-wrapper">
-    <div class="video-container video-locked" id="videoLock">
+    <div class="video-container" id="videoLock">
 
-      <!-- VIDEO STARTS PAUSED & MUTED -->
+      <!-- Video always visible; poster shows initially -->
       <video
         id="mainVideo"
         muted
@@ -149,6 +148,7 @@
         <source src="https://dl.dropboxusercontent.com/scl/fi/tp7d3troa94cwh2f1w0ir/JoshLeosTest.mp4?rlkey=i92obnk3sb2qhxxds4ure6dq8&st=9zb0nebi&dl=0" type="video/mp4">
       </video>
 
+      <!-- Overlay blocks interaction until password -->
       <div class="video-overlay" id="overlay">
         <div class="lock-icon">ENTER PASSWORD</div>
         <div class="password-box">
@@ -169,7 +169,6 @@
   </footer>
 
   <script>
-    const videoContainer = document.getElementById("videoLock");
     const overlay = document.getElementById("overlay");
     const video = document.getElementById("mainVideo");
     const passwordInput = document.getElementById("passwordInput");
@@ -194,11 +193,8 @@
     passwordInput.addEventListener("keydown", function(e) {
       if (e.key === "Enter") {
         if (realPassword === "CrunchwrapSupreme") {
-          videoContainer.classList.remove("video-locked");
-          overlay.style.display = "none";
-          video.setAttribute("controls", "controls");
-
-          // Keep muted for autoplay on all devices
+          overlay.style.display = "none";          // Hide overlay
+          video.setAttribute("controls", "controls"); // Enable controls
           video.play().catch(err => console.log("Video playback blocked:", err));
         } else {
           alert("Incorrect password!");
