@@ -1,19 +1,16 @@
-exports.handler = async (event) => {
-  const { password } = JSON.parse(event.body);
+exports.handler = async function(event) {
+  const password = event.queryStringParameters?.password;
 
-  // Secrets stored in Netlify environment variables
-  const CORRECT_PASSWORD = process.env.VIDEO_PASSWORD;
-  const VIDEO_URL = process.env.VIDEO_URL;
-
-  if (password === CORRECT_PASSWORD) {
+  if (password === process.env.VIDEO_PASSWORD) {
     return {
       statusCode: 200,
-      body: JSON.stringify({ success: true, videoUrl: VIDEO_URL })
+      body: JSON.stringify({ url: process.env.VIDEO_URL }),
+    };
+  } else {
+    return {
+      statusCode: 401,
+      body: JSON.stringify({ error: "Incorrect password" }),
     };
   }
-
-  return {
-    statusCode: 401,
-    body: JSON.stringify({ success: false })
-  };
 };
+
