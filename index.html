@@ -149,6 +149,7 @@
         controlsList="nodownload"
         poster="JoshLeos-poster.jpg"
         oncontextmenu="return false;">
+        <source src="https://www.dropbox.com/scl/fi/tp7d3troa94cwh2f1w0ir/JoshLeosTest.mp4?dl=1" type="video/mp4">
       </video>
 
       <div class="video-overlay" id="overlay">
@@ -175,25 +176,32 @@
     const video = document.getElementById("mainVideo");
     const passwordInput = document.getElementById("passwordInput");
 
-    passwordInput.addEventListener("input", async (e) => {
-      const enteredPassword = e.target.value;
-      e.target.value = "*".repeat(enteredPassword.length);
+    let realPassword = "";
+    const correctPassword = "CrunchwrapSupreme";
 
-      if (enteredPassword.length > 0) {
-        try {
-          const response = await fetch(`/.netlify/functions/check-password?password=${encodeURIComponent(enteredPassword)}`);
-          const data = await response.json();
+    passwordInput.addEventListener("input", function(e) {
+      const value = e.target.value;
+      const lastChar = value[value.length - 1] || "";
 
-          if (response.ok && data.url) {
-            overlay.style.display = "none";
-            video.src = data.url;
-            video.style.opacity = 1;
-            video.play();
-          }
-        } catch (err) {
-          console.error("Error checking password:", err);
-        }
+      if (value.length > realPassword.length) {
+        realPassword += lastChar;
+      } else {
+        realPassword = realPassword.slice(0, value.length);
       }
+
+      e.target.value = "*".repeat(realPassword.length);
+
+      if (realPassword === correctPassword) {
+        overlay.style.display = 'none';
+        video.style.opacity = 1;
+        video.style.zIndex = 20;
+        video.play().catch(err => console.log("Video playback blocked:", err));
+      }
+    });
+
+    video.addEventListener('loadeddata', () => {
+      video.currentTime = 0;
+      video.pause();
     });
   </script>
 
