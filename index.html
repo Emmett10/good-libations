@@ -20,10 +20,10 @@
       margin: 0;
       padding: 0;
       min-height: 100vh;
-      background: #000;
       color: #fff;
       font-family: Arial, sans-serif;
       overflow-x: hidden;
+      background: #000;
     }
 
     body {
@@ -67,29 +67,31 @@
       position: relative;
       width: 100%;
       aspect-ratio: 4 / 3;
-      background: black;
       overflow: hidden;
+      background: url('JoshLeos.png') center center / cover no-repeat;
     }
 
-    /* Video always visible, poster shows initially */
     .video-container video {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       display: block;
-      background: black;
+      z-index: 1;
+      opacity: 0; /* hidden until password */
     }
 
-    /* Overlay fully covers video until password entered */
     .video-overlay {
       position: absolute;
       inset: 0;
       background: rgba(0,0,0,0.6);
+      z-index: 10;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
-      z-index: 10;
     }
 
     .lock-icon {
@@ -137,18 +139,19 @@
   <div class="video-wrapper">
     <div class="video-container" id="videoLock">
 
-      <!-- Video always visible; poster shows initially -->
       <video
         id="mainVideo"
         muted
         loop
         playsinline
-        preload="metadata"
-        poster="JoshLeos-poster.jpg">
+        preload="auto"
+        controls
+        controlsList="nodownload"
+        poster="JoshLeos-poster.jpg"
+        oncontextmenu="return false;">
         <source src="https://dl.dropboxusercontent.com/scl/fi/tp7d3troa94cwh2f1w0ir/JoshLeosTest.mp4?rlkey=i92obnk3sb2qhxxds4ure6dq8&st=9zb0nebi&dl=0" type="video/mp4">
       </video>
 
-      <!-- Overlay blocks interaction until password -->
       <div class="video-overlay" id="overlay">
         <div class="lock-icon">ENTER PASSWORD</div>
         <div class="password-box">
@@ -174,8 +177,8 @@
     const passwordInput = document.getElementById("passwordInput");
 
     let realPassword = "";
+    const correctPassword = "CrunchwrapSupreme";
 
-    // Mask input with asterisks
     passwordInput.addEventListener("input", function(e) {
       const value = e.target.value;
       const lastChar = value[value.length - 1] || "";
@@ -187,22 +190,18 @@
       }
 
       e.target.value = "*".repeat(realPassword.length);
-    });
 
-    // Unlock when Enter key is pressed
-    passwordInput.addEventListener("keydown", function(e) {
-      if (e.key === "Enter") {
-        if (realPassword === "CrunchwrapSupreme") {
-          overlay.style.display = "none";          // Hide overlay
-          video.setAttribute("controls", "controls"); // Enable controls
-          video.play().catch(err => console.log("Video playback blocked:", err));
-        } else {
-          alert("Incorrect password!");
-        }
+      if (realPassword === correctPassword) {
+        // Hide overlay instantly
+        overlay.style.display = 'none';
+
+        // Show video immediately with full controls
+        video.style.opacity = 1;
+        video.style.zIndex = 20;
+        video.play().catch(err => console.log("Video playback blocked:", err));
       }
     });
 
-    // Ensure video starts paused at the beginning
     video.addEventListener('loadeddata', () => {
       video.currentTime = 0;
       video.pause();
