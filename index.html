@@ -34,14 +34,16 @@
     }
 
     h1 {
-      font-family: 'Times New Roman', serif;
+      font-family: "Times New Roman", serif;
       font-weight: bold;
       font-size: 2vw;
       margin-bottom: 40px;
       line-height: 1;
     }
 
-    h1 span { display: block; }
+    h1 span {
+      display: block;
+    }
 
     @media (max-width: 600px) {
       h1 { font-size: 6vw; }
@@ -64,7 +66,7 @@
     .video-poster {
       position: absolute;
       inset: 0;
-      background: url('JoshLeos.png') center center / cover no-repeat;
+      background: url("JoshLeos.png") center center / cover no-repeat;
       z-index: 2;
     }
 
@@ -134,7 +136,7 @@
       <!-- Poster -->
       <div class="video-poster" id="videoPoster"></div>
 
-      <!-- Bunny Stream iframe (hidden until unlocked) -->
+      <!-- Bunny Stream player (hidden until unlocked) -->
       <div class="stream-wrapper" id="streamWrapper">
         <div style="position:relative;width:100%;height:100%;">
           <iframe
@@ -151,7 +153,11 @@
       <div class="video-overlay" id="overlay">
         <div class="lock-icon">ENTER PASSWORD</div>
         <div class="password-box">
-          <input type="password" id="passwordInput" autocomplete="off" placeholder="Password">
+          <input
+            type="password"
+            id="passwordInput"
+            autocomplete="off"
+            placeholder="Password">
         </div>
       </div>
 
@@ -175,8 +181,6 @@
     const stream = document.getElementById("streamWrapper");
     const passwordInput = document.getElementById("passwordInput");
 
-    let enteredPassword = "";
-
     // SHA‑256 hash of "CrunchwrapSupreme"
     const correctHash =
       "9d366d854d74392bd934c6ce88c94c415017758c31d29f624e2c8a9bea686d17";
@@ -185,17 +189,18 @@
       const encoder = new TextEncoder();
       const data = encoder.encode(password);
       const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-      return [...new Uint8Array(hashBuffer)]
+      return Array.from(new Uint8Array(hashBuffer))
         .map(b => b.toString(16).padStart(2, "0"))
         .join("");
     }
 
     passwordInput.addEventListener("input", async (e) => {
-      const value = e.target.value;
-      enteredPassword = value;
-      e.target.value = "•".repeat(value.length);
+      const value = e.target.value.trim();
 
-      const hashed = await hashPassword(enteredPassword);
+      // Optional guard for very short input
+      if (value.length < 8) return;
+
+      const hashed = await hashPassword(value);
 
       if (hashed === correctHash) {
         overlay.style.display = "none";
