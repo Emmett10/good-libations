@@ -1,209 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Good Libations - Home</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Good Libations</title>
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  padding: 50px 20px;
+  background: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
 
-  <style>
-    @font-face {
-      font-family: "MADE Sunflower";
-      src: url("fonts/MADE_Sunflower.woff2") format("woff2"),
-           url("fonts/MADE_Sunflower.woff") format("woff"),
-           url("fonts/MADE_Sunflower.otf") format("opentype");
-    }
+/* ✅ SMALLER LOGO */
+.logo {
+  max-width: 260px;
+  margin-bottom: 60px;
+}
+.logo img {
+  width: 100%;
+}
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      background: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-    }
+/* layout */
+.video-wrapper {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 80px;
+}
 
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 50px 20px;
-      text-align: center;
-    }
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-top: 75%;
+  overflow: hidden;
+  background: #000;
+}
 
-    /* ✅ Logo (half original size) */
-    .logo {
-      width: 100%;
-      max-width: 300px; /* was 600px */
-      margin-bottom: 40px;
-    }
+/* ✅ NEW video background */
+#newVideoBg {
+  background: url("GoodLibationsIntro.png") center / cover no-repeat;
+}
 
-    .logo img {
-      width: 100%;
-      height: auto;
-    }
+/* ✅ ORIGINAL poster */
+.video-poster {
+  position: absolute;
+  inset: 0;
+  background: url("JoshLeos.png") center / cover no-repeat;
+  z-index: 2;
+}
 
-    .video-wrapper {
-      width: 100%;
-      max-width: 800px;
-      margin-bottom: 30px;
-    }
+.stream-wrapper {
+  position: absolute;
+  inset: 0;
+  display: none;
+  z-index: 1;
+}
 
-    .video-container {
-      position: relative;
-      width: 100%;
-      padding-top: 75%;
-      background: black;
-      overflow: hidden;
-    }
+iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
 
-    .video-poster {
-      position: absolute;
-      inset: 0;
-      background: url("JoshLeos.png") center center / cover no-repeat;
-      z-index: 2;
-    }
+/* overlay */
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
 
-    .stream-wrapper {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      display: none;
-    }
+.lock-icon {
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
 
-    .video-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+.password-box input {
+  padding: 6px;
+  width: 130px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+  text-align: center;
+}
 
-    .lock-icon {
-      font-size: 0.8rem;
-      margin-bottom: 8px;
-      letter-spacing: 1px;
-      font-weight: bold;
-    }
+/* ✅ INSTAGRAM (no extra gap now) */
+.social-icon {
+  margin-bottom: 0;
+}
+.social-icon img {
+  height: 50px;
+  transition: transform 0.2s ease;
+}
+.social-icon img:hover {
+  transform: scale(1.1);
+}
 
-    .password-box input {
-      padding: 6px;
-      width: 130px;
-      font-size: 0.75rem;
-      border-radius: 4px;
-      border: 2px solid #fff;
-      background: transparent;
-      color: #fff;
-      text-align: center;
-    }
-
-    .social-icon {
-      margin-top: 12px;
-    }
-
-    .social-icon img {
-      height: 50px;
-    }
-
-    footer {
-      margin-top: auto;
-      font-family: "MADE Sunflower", serif;
-      font-size: 0.9rem;
-      padding: 10px;
-    }
-
-    /* Optional mobile tweak */
-    @media (max-width: 480px) {
-      .logo {
-        max-width: 220px;
-      }
-    }
-  </style>
+/* ✅ FOOTER tighter */
+footer {
+  margin-top: auto;
+  font-size: 0.9rem;
+  padding: 10px 0;
+}
+</style>
 </head>
 
 <body>
 
-  <!-- ✅ PNG logo -->
-  <div class="logo">
-    <img src="new%20goodlibes%20logo.png" alt="Good Libations Logo">
-  </div>
+<!-- ✅ LOGO -->
+<div class="logo">
+  <img src="new%20goodlibes%20logo.png" alt="Good Libations Logo">
+</div>
 
-  <div class="video-wrapper">
-    <div class="video-container">
+<!-- ✅ NEW VIDEO -->
+<div class="video-wrapper">
+  <div class="video-container" id="newVideoBg">
 
-      <div class="video-poster" id="videoPoster"></div>
-
-      <!-- Bunny Stream iframe -->
-      <div class="stream-wrapper" id="streamWrapper">
-        <div style="position:relative;width:100%;height:100%;">
-          <iframe
-            src="https://player.mediadelivery.net/embed/658521/41f6d25c-2fb5-4d05-8d15-8bf411f450f5?loop=false&responsive=true"
-            loading="lazy"
-            style="border:0;position:absolute;top:0;left:0;width:100%;height:100%;"
-            allow="accelerometer;gyroscope;encrypted-media;picture-in-picture;"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-
-      <!-- Password overlay -->
-      <div class="video-overlay" id="overlay">
-        <div class="lock-icon">ENTER PASSWORD</div>
-        <div class="password-box">
-          <input type="password" id="passwordInput" autocomplete="off" placeholder="Password">
-        </div>
-      </div>
-
+    <div class="stream-wrapper" id="stream2">
+      <iframe src="https://player.mediadelivery.net/embed/658521/2fb2db85-2249-4900-9617-d16750c9b328?responsive=true"
+        allow="accelerometer; gyroscope; encrypted-media; picture-in-picture"
+        allowfullscreen>
+      </iframe>
     </div>
 
-    <!-- Instagram -->
-    <div class="social-icon">
-      <a href="https://instagram.com/goodlibes?igsh=NTc4MTlwNjQ2YQ==" target="_blank" rel="noopener">
-        <img src="IG.avif" alt="Instagram">
-      </a>
+    <div class="video-overlay" id="overlay2">
+      <div class="lock-icon">ENTER PASSWORD</div>
+      <div class="password-box">
+        <input type="password" id="pass2" placeholder="Password">
+      </div>
     </div>
+
   </div>
+</div>
 
-  <footer>
-    © 2025 Good Libations — All Rights Reserved
-  </footer>
+<!-- ✅ ORIGINAL VIDEO -->
+<div class="video-wrapper">
+  <div class="video-container">
 
-  <script>
-    const overlay = document.getElementById("overlay");
-    const poster = document.getElementById("videoPoster");
-    const stream = document.getElementById("streamWrapper");
-    const passwordInput = document.getElementById("passwordInput");
+    <div class="video-poster" id="poster"></div>
 
-    // SHA-256 hash of "CrunchwrapSupreme"
-    const correctHash =
-      "9d366d854d74392bd934c6ce88c94c415017758c31d29f624e2c8a9bea686d17";
+    <div class="stream-wrapper" id="stream">
+      <iframe src="https://player.mediadelivery.net/embed/658521/41f6d25c-2fb5-4d05-8d15-8bf411f450f5?responsive=true"
+        allow="accelerometer; gyroscope; encrypted-media; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
 
-    async function hashPassword(password) {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(password);
-      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-      return Array.from(new Uint8Array(hashBuffer))
-        .map(b => b.toString(16).padStart(2, "0"))
-        .join("");
-    }
+    <div class="video-overlay" id="overlay">
+      <div class="lock-icon">ENTER PASSWORD</div>
+      <div class="password-box">
+        <input type="password" id="pass" placeholder="Password">
+      </div>
+    </div>
 
-    passwordInput.addEventListener("input", async (e) => {
-      const value = e.target.value.trim();
-      if (value.length < 8) return;
+  </div>
+</div>
 
-      const hashed = await hashPassword(value);
-      if (hashed === correctHash) {
-        overlay.style.display = "none";
-        poster.style.display = "none";
-        stream.style.display = "block";
-      }
-    });
-  </script>
+<!-- ✅ INSTAGRAM -->
+<div class="social-icon">
+  <a href="https://instagram.com/goodlibes?igsh=NTc4MTlwNjQ2YQ==" target="_blank">
+    <img src="IG.avif" alt="Instagram">
+  </a>
+</div>
+
+<!-- ✅ FOOTER -->
+<footer>
+  © 2026 Good Libations — All Rights Reserved
+</footer>
+
+<script>
+async function hashPassword(password) {
+  const data = new TextEncoder().encode(password);
+  const hash = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(hash))
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+/* ✅ NEW PASSWORD */
+const REAL_PASSWORD = "parkingtickets";
+let correctHash2 = "";
+
+(async () => {
+  correctHash2 = await hashPassword(REAL_PASSWORD);
+})();
+
+document.getElementById("pass2").addEventListener("input", async (e) => {
+  const hashed = await hashPassword(e.target.value.trim());
+  if (hashed === correctHash2) {
+    document.getElementById("overlay2").style.display = "none";
+    document.getElementById("stream2").style.display = "block";
+  }
+});
+
+/* ✅ ORIGINAL PASSWORD */
+const correctHash = "9d366d854d74392bd934c6ce88c94c415017758c31d29f624e2c8a9bea686d17";
+
+document.getElementById("pass").addEventListener("input", async (e) => {
+  const hashed = await hashPassword(e.target.value.trim());
+  if (hashed === correctHash) {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("poster").style.display = "none";
+    document.getElementById("stream").style.display = "block";
+  }
+});
+</script>
 
 </body>
 </html>
