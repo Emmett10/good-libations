@@ -236,6 +236,9 @@ document.getElementById("pass3").addEventListener("input", async (e) => {
   if (hashed === correctHash3) {
     document.getElementById("overlay3").style.display = "none";
     document.getElementById("stream3").style.display = "block";
+
+    // Remove background image
+    document.getElementById("DominiqueJackson_Bg").style.backgroundImage = "none";
   }
 });
 
